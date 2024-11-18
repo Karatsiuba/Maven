@@ -1,0 +1,46 @@
+SELECT 
+    COUNT(*) AS total_rows,
+    COUNT(CASE WHEN "Access-A-Ride: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_access_a_ride_pct,
+    COUNT(CASE WHEN "Access-A-Ride: Total Scheduled Trips" IS NULL THEN 1 END) AS missing_access_a_ride_scheduled_trips,
+    COUNT(CASE WHEN "Bridges and Tunnels: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_bridges_pct,
+    COUNT(CASE WHEN "Bridges and Tunnels: Total Traffic" IS NULL THEN 1 END) AS missing_bridges_total_traffic,
+    COUNT(CASE WHEN "Buses: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_buses_pct,
+    COUNT(CASE WHEN "Buses: Total Estimated Ridership" IS NULL THEN 1 END) AS missing_buses_total,
+    COUNT(CASE WHEN "Date" IS NULL THEN 1 END) AS missing_date,
+    COUNT(CASE WHEN "LIRR: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_lirr_pct,
+    COUNT(CASE WHEN "LIRR: Total Estimated Ridership" IS NULL THEN 1 END) AS missing_lirr_total,
+    COUNT(CASE WHEN "Metro-North: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_metro_north_pct,
+    COUNT(CASE WHEN "Metro-North: Total Estimated Ridership" IS NULL THEN 1 END) AS missing_metro_north_total,
+    COUNT(CASE WHEN "Staten Island Railway: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_staten_island_pct,
+    COUNT(CASE WHEN "Staten Island Railway: Total Estimated Ridership" IS NULL THEN 1 END) AS missing_staten_island_total,
+    COUNT(CASE WHEN "Subways: % of Comparable Pre-Pandemic Day" IS NULL THEN 1 END) AS missing_subways_pct,
+    COUNT(CASE WHEN "Subways: Total Estimated Ridership" IS NULL THEN 1 END) AS missing_subways_total
+FROM mta_daily_ridership;
+
+
+SELECT *
+FROM mta_daily_ridership
+WHERE TO_DATE("Date", 'YYYY-MM-DD') IS NULL;
+
+
+
+SELECT *
+FROM mta_daily_ridership
+WHERE 
+    CAST("Subways: Total Estimated Ridership" AS FLOAT) IS NULL OR
+    CAST("Subways: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL OR
+    CAST("Buses: Total Estimated Ridership" AS FLOAT) IS NULL OR
+    CAST("Buses: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL OR
+    CAST("LIRR: Total Estimated Ridership" AS FLOAT) IS NULL OR
+    CAST("LIRR: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL OR
+    CAST("Metro-North: Total Estimated Ridership" AS FLOAT) IS NULL OR
+    CAST("Metro-North: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL OR
+    CAST("Access-A-Ride: Total Scheduled Trips" AS FLOAT) IS NULL OR
+    CAST("Access-A-Ride: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL OR
+    CAST("Bridges and Tunnels: Total Traffic" AS FLOAT) IS NULL OR
+    CAST("Bridges and Tunnels: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL OR
+    CAST("Staten Island Railway: Total Estimated Ridership" AS FLOAT) IS NULL OR
+    CAST("Staten Island Railway: % of Comparable Pre-Pandemic Day" AS FLOAT) IS NULL;
+
+
+
